@@ -1,0 +1,5 @@
+crear usuario userCourt p@$$w0rd
+crear base de datos courtDB
+(Modificar el .env si es necesario)
+php artisan migrate:fresh --seed
+[php artisan storage:link]
