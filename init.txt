@@ -5,6 +5,6 @@ crear usuario userCourt p@$$w0rd
 crear base de datos courtDB
 (Modificar el .env si es necesario)
 php artisan migrate:fresh --seed
---Antes de correr la app--
 php artisan storage:link
+--Antes de correr la app--
 php artisan serve -> Run the app
