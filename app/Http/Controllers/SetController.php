@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Stat;
-class StatController extends Controller
+use App\Set;
+class SetController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -82,7 +82,7 @@ class StatController extends Controller
         //
     }
     public function fetchAll(){
-        $stats = Stat::get();
-        return response()->json($stats,200);
+        $sets = Set::get();
+        return response()->json($sets,200);
     }
 }
