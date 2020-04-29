@@ -82,7 +82,21 @@ class SetController extends Controller
         //
     }
     public function fetchAll(){
+        
+        $array=array();
         $sets = Set::get();
-        return response()->json($sets,200);
+        foreach ($sets as $set) 
+        {
+            $array[$set->id] = [
+                'match_id' => $set->match_id,
+                'nSet'=> $set->nSet,
+                'player1Score'=> $set->player1Score,
+                'player2Score'=> $set->player2Score,
+                'tiebreak'=> $set->tiebreak,
+                'created_at' => $set->created_at,
+                'updated_at' => $set->updated_at    
+            ]; 
+        }
+        return response()->json($array,200);
     }
 }

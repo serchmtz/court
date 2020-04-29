@@ -83,7 +83,17 @@ class ParticipantController extends Controller
     }
     public function fetchAll()
     {
+        $array=array();
         $participants = Participant::get();
-        return response()->json($participants,200);
+        foreach ($participants as $participant) 
+        {
+            $array[$participant->id] = [
+                'player_id' => $participant->player_id,
+                'team_id' => $participant->team_id,
+                'created_at' => $participant->created_at,
+                'updated_at' => $participant->updated_at    
+            ]; 
+        }
+        return response()->json($array,200);
     }
 }

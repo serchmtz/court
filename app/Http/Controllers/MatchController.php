@@ -83,7 +83,24 @@ class MatchController extends Controller
     }
     public function fetchAll()
     {
+        $array=array();
         $matches = Match::get();
-        return response()->json($matches,200);
+        foreach ($matches as $match) 
+        {
+            $array[$match->id] = [
+                'tournament_id' => $match->tournament_id,
+                'player1'=>$match->player1,
+                'player2'=> $match->player2,
+                'winner_id' => $match->winner_id,
+                'round' => $match->round,
+                'started_at' =>$match->started_at,
+                'finished_at' =>$match->finished_at,
+                'abandoned' => $match->abandoned,
+                'excuse' => $match->excuse,
+                'created_at' => $match->created_at,
+                'updated_at' => $match->updated_at    
+            ]; 
+        }
+        return response()->json($array,200);
     }
 }

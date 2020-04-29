@@ -82,7 +82,29 @@ class StatController extends Controller
         //
     }
     public function fetchAll(){
+       
+        $array=array();
         $stats = Stat::get();
-        return response()->json($stats,200);
+        foreach ($stats as $stat) 
+        {
+            $array[$stat->id] = [
+                'match_id' => $stat->match_id,
+                'acesP1'=> $stat->acesP1,
+                'acesP2'=> $stat->acesP2,
+                'doubleFaultP1'=> $stat->doubleFaultP1,
+                'doubleFaultP2'=> $stat->doubleFaultP2,
+                'firstServicePercentageP1'=> $stat->firstServicePercentageP1,
+                'firstServicePercentageP2'=> $stat->firstServicePercentageP2,
+                'servicePointsWonP1'=> $stat->servicePointsWonP1,
+                'servicePointsWonP2'=> $stat->servicePointsWonP2,
+                'tiebreaksWonP1'=> $stat->tiebreaksWonP1,
+                'tiebreaksWonP2'=> $stat->tiebreaksWonP2,
+                'serverGamesWonP1'=> $stat->serverGamesWonP1,
+                'serverGamesWonP2'=> $stat->serverGamesWonP2,
+                'created_at' => $stat->created_at,
+                'updated_at' => $stat->updated_at   
+            ]; 
+        }
+        return response()->json($array,200);
     }
 }

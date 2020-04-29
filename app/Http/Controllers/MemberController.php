@@ -83,7 +83,17 @@ class MemberController extends Controller
     }
     public function fetchAll()
     {
+        $array=array();
         $members = Member::get();
-        return response()->json($members,200);
+        foreach ($members as $member) 
+        {
+            $array[$member->id] = [
+                'player_id' => $member->player_id,
+                'team_id' => $member->team_id,
+                'created_at' => $member->created_at,
+                'updated_at' => $member->updated_at    
+            ]; 
+        }
+        return response()->json($array,200);
     }
 }

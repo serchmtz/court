@@ -82,7 +82,20 @@ class TournamentController extends Controller
         //
     }
     public function fetchAll(){
-        $tournaments = Tournament::get();
-        return response()->json($tournaments,200);
+        $array=array();
+        $tournaments = Tournament::get();   
+        foreach ($tournaments as $tournament) {
+            $array[$tournament->id] = [
+                'name' => $tournament->name,
+                'date'=> $tournament->date,
+                'category' => $tournament->category,
+                'competition' => $tournament->competition,
+                'nRounds' => $tournament->nRounds,
+                'location' => $tournament->location,    
+                'created_at' => $tournament->created_at,
+                'updated_at' => $tournament->updated_at  
+            ]; 
+        }
+        return response()->json($array,200);
     }
 }

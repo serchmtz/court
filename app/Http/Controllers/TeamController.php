@@ -82,7 +82,17 @@ class TeamController extends Controller
         //
     }
     public function fetchAll(){
-        $teams = Team::get();
-        return response()->json($teams,200);
+        $array=array();
+        $teams = Team::get();  
+        foreach ($teams as $team) {
+            $array[$team->id] = [
+                'name' => $team->name,
+                'category'=>$team->category,
+                'atpPoints'=>$team->atpPoints,      
+                'created_at' => $team->created_at,
+                'updated_at' => $team->updated_at  
+            ]; 
+        }
+        return response()->json($array,200);
     }
 }

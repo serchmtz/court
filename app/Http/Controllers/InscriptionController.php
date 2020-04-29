@@ -84,6 +84,17 @@ class InscriptionController extends Controller
     public function fetchAll()
     {
         $inscriptions = Inscription::get();
-        return response()->json($inscriptions,200);
+        $array=array();
+        $inscriptions = Inscription::get();
+        foreach ($inscriptions as $inscription) 
+        {
+            $array[$inscription->id] = [
+                'tournament_id' =>$inscription->tournament_id,
+                'participant_id'=> $inscription->participant_id, 
+                'created_at' => $inscription->created_at,
+                'updated_at' => $inscription->updated_at    
+            ]; 
+        }
+        return response()->json($array,200);
     }
 }
