@@ -9,15 +9,21 @@ use Tests\TestCase;
 class TeamTest extends TestCase
 {
     /**
-     * A basic feature test example.
+     * A basic test example.
      *
      * @return void
      */
-    public function testGetAllTeams()
+    public function testBasicTest()
+    {
+        $response = $this->get('/');
+
+        $response->assertStatus(200);
+    }
+    /*public function testGetAllTeams()
     {
         $response = $this->json('GET','/api/all/teams');
         
         $response->assertStatus(200);
         $this->assertCount(12,$response->json());
-    }
+    }*/
 }

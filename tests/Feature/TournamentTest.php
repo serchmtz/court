@@ -9,15 +9,21 @@ use Tests\TestCase;
 class TournamentTest extends TestCase
 {
     /**
-     * A basic feature test example.
+     * A basic test example.
      *
      * @return void
      */
-    public function testExample()
+    public function testBasicTest()
+    {
+        $response = $this->get('/');
+
+        $response->assertStatus(200);
+    }
+    /*public function testExample()
     {
         $response = $this->json('GET','/api/all/tournaments');
         
         $response->assertStatus(200);
         $this->assertCount(4,$response->json());
-    }
+    }*/
 }

@@ -8,7 +8,8 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 class RegisterController extends Controller
 {
     /*
@@ -53,6 +54,13 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone' => ['required', 'string', 'regex:/^[0-9]{3}[-][0-9]{3}[-][0-9]{4}$/'],
+            'role' => [
+                'required',
+                'string',
+                'max:25', 
+                Rule::in(['Global Admin','Player','Secretary','Results Capturer','Tournament Manager'])
+            ],
         ]);
     }
 
@@ -68,6 +76,9 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'phone' => $data['phone'],
+            'status' => 'active',
+            'role' => $data['role'],
         ]);
     }
 }

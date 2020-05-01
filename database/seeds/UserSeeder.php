@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -19,7 +20,7 @@ class UserSeeder extends Seeder
             'email' => 'alfred.siward@gmail.com',
             'phone' => '202-555-0191',
             'role' => 'Global Admin',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -28,7 +29,7 @@ class UserSeeder extends Seeder
             'email' => 'burton.cipriano@gmail.com',
             'phone' => '314-472-6954',
             'role' => 'Tournament Manager',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -37,7 +38,7 @@ class UserSeeder extends Seeder
             'email' => 'diana.everild@gmail.com',
             'phone' => '480-438-3540',
             'role' => 'Secretary',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -46,7 +47,7 @@ class UserSeeder extends Seeder
             'email' => 'feliciana.ligelia@gmail.com',
             'phone' => '318-658-9808',
             'role' => 'Results Capturer',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -55,7 +56,7 @@ class UserSeeder extends Seeder
             'email' => 'novak.djokovic@gmail.com',
             'phone' => '941-423-0860',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -64,7 +65,7 @@ class UserSeeder extends Seeder
             'email' => 'rafael.nadal@gmail.com',
             'phone' => '305-924-7545',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -73,7 +74,7 @@ class UserSeeder extends Seeder
             'email' => 'dominic.thiem@gmail.com',
             'phone' => '931-237-9170',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -82,7 +83,7 @@ class UserSeeder extends Seeder
             'email' => 'roger.federer@gmail.com',
             'phone' => '330-698-8848',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -91,7 +92,7 @@ class UserSeeder extends Seeder
             'email' => 'daniil.medvedev@gmail.com',
             'phone' => '407-715-0684',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -100,7 +101,7 @@ class UserSeeder extends Seeder
             'email' => 'stefanos.tsitsipas@gmail.com',
             'phone' => '786-545-2155',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -109,7 +110,7 @@ class UserSeeder extends Seeder
             'email' => 'alexander.zverev@gmail.com',
             'phone' => '858-763-3290',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -118,7 +119,7 @@ class UserSeeder extends Seeder
             'email' => 'matteo.berrettini@gmail.com',
             'phone' => '203-494-9312',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -127,7 +128,7 @@ class UserSeeder extends Seeder
             'email' => 'gael.monfils@gmail.com',
             'phone' => '615-687-1973',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -136,7 +137,7 @@ class UserSeeder extends Seeder
             'email' => 'david.goffin@gmail.com',
             'phone' => '662-871-1133',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -145,7 +146,7 @@ class UserSeeder extends Seeder
             'email' => 'fabio.fognini@gmail.com',
             'phone' => '503-425-1913',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -154,7 +155,7 @@ class UserSeeder extends Seeder
             'email' => 'roberto.bautista@gmail.com',
             'phone' => '217-696-9518',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -163,7 +164,7 @@ class UserSeeder extends Seeder
             'email' => 'diego.schwartzman@gmail.com',
             'phone' => '336-280-5702',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -172,7 +173,7 @@ class UserSeeder extends Seeder
             'email' => 'andrev.rublev@gmail.com',
             'phone' => '928-810-8957',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -181,7 +182,7 @@ class UserSeeder extends Seeder
             'email' => 'karen.khachanov@gmail.com',
             'phone' => '234-709-6911',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -190,7 +191,7 @@ class UserSeeder extends Seeder
             'email' => 'denis.shapovalov@gmail.com',
             'phone' => '203-701-6911',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -199,7 +200,7 @@ class UserSeeder extends Seeder
             'email' => 'ashleigh.barty@gmail.com',
             'phone' => '360-948-2090',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -208,7 +209,7 @@ class UserSeeder extends Seeder
             'email' => 'simona.halep@gmail.com',
             'phone' => '318-562-1165',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -217,7 +218,7 @@ class UserSeeder extends Seeder
             'email' => 'karolina.pliskova@gmail.com',
             'phone' => '402-541-8841',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -226,7 +227,7 @@ class UserSeeder extends Seeder
             'email' => 'sofia.kenin@gmail.com',
             'phone' => '757-472-7534',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -235,7 +236,7 @@ class UserSeeder extends Seeder
             'email' => 'elina.svitolina@gmail.com',
             'phone' => '740-974-4285',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -244,7 +245,7 @@ class UserSeeder extends Seeder
             'email' => 'biana.andreescu@gmail.com',
             'phone' => '505-951-1473',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -253,7 +254,7 @@ class UserSeeder extends Seeder
             'email' => 'kiki.bertens@gmail.com',
             'phone' => '818-571-7584',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -262,7 +263,7 @@ class UserSeeder extends Seeder
             'email' => 'belinda.bencic@gmail.com',
             'phone' => '909-352-3769',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -271,7 +272,7 @@ class UserSeeder extends Seeder
             'email' => 'serena.williams@gmail.com',
             'phone' => '210-836-9121',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -280,7 +281,7 @@ class UserSeeder extends Seeder
             'email' => 'naomi.osaka@gmail.com',
             'phone' => '616-956-3008',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -289,7 +290,7 @@ class UserSeeder extends Seeder
             'email' => 'aryna.sabalenka@gmail.com',
             'phone' => '615-780-5864',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -298,7 +299,7 @@ class UserSeeder extends Seeder
             'email' => 'petra.kvitova@gmail.com',
             'phone' => '210-489-8389',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -307,7 +308,7 @@ class UserSeeder extends Seeder
             'email' => 'madison.keys@gmail.com',
             'phone' => '704-869-5771',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -316,7 +317,7 @@ class UserSeeder extends Seeder
             'email' => 'johanna.konta@gmail.com',
             'phone' => '951-221-6962',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -325,7 +326,7 @@ class UserSeeder extends Seeder
             'email' => 'Petra.martic@gmail.com',
             'phone' => '937-505-5046',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
@@ -334,7 +335,7 @@ class UserSeeder extends Seeder
             'email' => 'garbine.muguruza@gmail.com',
             'phone' => '864-245-4041',
             'role' => 'Player',
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],

@@ -24,6 +24,16 @@ Route::get('/all/matches','MatchController@fetchAll')->name('fetchAll');
 Route::get('/all/stats','StatController@fetchAll')->name('fetchAll');
 Route::get('/all/sets','SetController@fetchAll')->name('fetchAll');
 
+Route::get('users', 'UserController@index');
+Route::get('users/{user}', 'UserController@show');
+Route::post('users', 'UserController@store');
+Route::put('users/{user}', 'UserController@update');
+Route::delete('users/{user}', 'UserController@delete');
+
+//Route::post('register', 'Auth\RegisterController@register');
+//Route::post('login', 'Auth\LoginController@login');
+
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

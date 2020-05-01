@@ -9,15 +9,21 @@ use Tests\TestCase;
 class SetTest extends TestCase
 {
     /**
-     * A basic feature test example.
+     * A basic test example.
      *
      * @return void
      */
-    public function testGetAllSets()
+    public function testBasicTest()
+    {
+        $response = $this->get('/');
+
+        $response->assertStatus(200);
+    }
+    /*public function testGetAllSets()
     {
         $response = $this->json('GET','/api/all/sets');
         
         $response->assertStatus(200);
         $this->assertCount(198,$response->json());
-    }
+    }*/
 }

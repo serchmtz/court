@@ -9,15 +9,21 @@ use Tests\TestCase;
 class ParticipantTest extends TestCase
 {
     /**
-     * A basic feature test example.
+     * A basic test example.
      *
      * @return void
      */
-    public function testGetAllParticipants()
+    public function testBasicTest()
+    {
+        $response = $this->get('/');
+
+        $response->assertStatus(200);
+    }
+    /*public function testGetAllParticipants()
     {
         $response = $this->json('GET','/api/all/participants');
         
         $response->assertStatus(200);
         $this->assertCount(44,$response->json());
-    }
+    }*/
 }
