@@ -10,6 +10,7 @@ use App\User;
 class UserTest extends TestCase
 {
     use RefreshDatabase;
+
     /**
      * A basic test example.
      *
@@ -96,9 +97,13 @@ class UserTest extends TestCase
     public function testdeleteUser()
     {
         $user = factory(User::class)->create();
-         
-        $response = $this->json('DELETE','/api/users/'.$user->id);
-        $response->assertStatus(204);
+        $user->status="active";
+        $response = $this->json('delete','/api/users/'.$user->id);
+        
+        $response->assertStatus(202)
+                ->assertJsonStructure([
+                    'message'
+                ]);
         $this->assertDatabaseHas('users',[
             'id' => $user->id,
             'status' => 'inactive',

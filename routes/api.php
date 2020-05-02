@@ -24,7 +24,7 @@ Route::get('/all/matches','MatchController@fetchAll')->name('fetchAll');
 Route::get('/all/stats','StatController@fetchAll')->name('fetchAll');
 Route::get('/all/sets','SetController@fetchAll')->name('fetchAll');
 
-Route::get('users', 'UserController@index')->name('users');
+Route::get('users', 'UserController@index')->name('users.index');
 Route::get('users/{user}', 'UserController@show')->name('users.show');
 Route::post('users', 'UserController@store')->name('users.store');
 Route::put('users/{user}', 'UserController@update')->name('users.update');
