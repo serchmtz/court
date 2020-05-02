@@ -153,5 +153,14 @@ class UserController extends Controller
         }
         return response()->json($array,200);
     }
+    public static function respondNotFound(string $msg = null)
+    {
+        $error['status_code'] = 404;
+        if (!!$msg) {
+            $error['message'] = $msg;
+        }
+
+        return response(compact('error'), 404);
+    }
     
 }

@@ -28,8 +28,7 @@ Route::get('users', 'UserController@index')->name('users');
 Route::get('users/{user}', 'UserController@show')->name('users.show');
 Route::post('users', 'UserController@store')->name('users.store');
 Route::put('users/{user}', 'UserController@update')->name('users.update');
-Route::delete('users/{user}', 'UserController@delete')->name('users.delete');
-
+Route::delete('users/{user}', 'UserController@delete')->name('users.destroy');
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
