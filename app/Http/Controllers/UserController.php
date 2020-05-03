@@ -37,7 +37,6 @@ class UserController extends Controller
             'phone' => $user->phone,
             'role' => $user->role,
             'status' => $user->status,
-            'email' => $user->email,
             'email_verified_at' => $user->email_verified_at,
             'created_at' => $user->created_at,
             'updated_at' => $user->updated_at
