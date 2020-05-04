@@ -2,12 +2,11 @@
 npm install && npm run dev [Install React dependencies]
 composer install [Install Laravel dependencies]
 composer require laravel/passport [Install passport]
-php artisan passport:install
 crear usuario userCourt p@$$w0rd
 crear base de datos courtDB
-(Modificar el .env si es necesario)
+Modificar el .env 
 php artisan migrate
-php artisan passport:install [do not force, only fot the next step, but if a warning 
+php artisan passport:install [do not force, only for the next step, but if a warning 
 message shows up, just go on]
 php artisan db:seed
 php artisan storage:link
