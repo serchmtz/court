@@ -24,12 +24,16 @@ Route::get('/all/matches','MatchController@fetchAll')->name('fetchAll');
 Route::get('/all/stats','StatController@fetchAll')->name('fetchAll');
 Route::get('/all/sets','SetController@fetchAll')->name('fetchAll');
 
-Route::get('users', 'UserController@index')->name('users.index');
-Route::get('users/{user}', 'UserController@show')->name('users.show');
-Route::post('users', 'UserController@store')->name('users.store');
-Route::put('users/{user}', 'UserController@update')->name('users.update');
-Route::delete('users/{user}', 'UserController@delete')->name('users.destroy');
+Route::middleware('auth:api')->group( function () {
+    Route::get('users', 'UserController@index')->name('users.index');
+    Route::get('users/{user}', 'UserController@show')->name('users.show');
+    Route::post('users', 'API\RegisterController@register')->name('users.store');
+    Route::put('users/{user}', 'UserController@update')->name('users.update');
+    Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
+    Route::post('logout', 'API\RegisterController@logout');
+});
 
+Route::post('login', 'API\RegisterController@login');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
