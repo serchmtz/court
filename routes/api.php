@@ -30,10 +30,11 @@ Route::middleware('auth:api')->group( function () {
     Route::post('users', 'API\RegisterController@register')->name('users.store');
     Route::put('users/{user}', 'UserController@update')->name('users.update');
     Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
-    Route::post('logout', 'API\RegisterController@logout');
+    Route::post('logout', 'API\RegisterController@logout')->name('logout');
+    Route::get('authuser','API\RegisterController@authuser')->name('authuser');
 });
 
-Route::post('login', 'API\RegisterController@login');
+Route::post('login', 'API\RegisterController@login')->name('login');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

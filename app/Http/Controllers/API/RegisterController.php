@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+
 class RegisterController extends BaseController
 {
     /**

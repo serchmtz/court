@@ -2,19 +2,32 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use App\User;
+use Illuminate\Http\Request;
 
 class UserSeeder extends Seeder
 {
+    public function createUser($new_user){
+        date_default_timezone_set('America/Mexico_City');
+   
+        $input = $new_user;
+        $input['password'] = $input['password'];
+        $user = User::create($input);
+        $user->status = 'active';
+        $user->created_at = date("Y-m-d H:i:s");
+        $user->updated_at = date("Y-m-d H:i:s");
+        $user->save();
+        $success['token'] =  $user->createToken('courtApp')->accessToken;
+    }
     /**
-     * Run the database seeds.
+     * Run the database seeds.  
      *
      * @return void
      */
     public function run()
     {
         date_default_timezone_set('America/Mexico_City');
-        
-        DB::table('users')->insert([
+        $users= [
         [
             'name' => 'Alfredo Siward',
             'email' => 'alfred.siward@gmail.com',
@@ -339,6 +352,9 @@ class UserSeeder extends Seeder
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ],
-        ]);
+        ];
+        foreach ($users as $user) {
+            $this->createUser($user);
+        }
     }
 }

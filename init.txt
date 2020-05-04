@@ -6,7 +6,10 @@ php artisan passport:install
 crear usuario userCourt p@$$w0rd
 crear base de datos courtDB
 (Modificar el .env si es necesario)
-php artisan migrate:fresh --seed
+php artisan migrate:fresh
+php artisan passport:install [do not force, only fot the next step, but if a warning 
+message shows up, just go on]
+php artisan db:seed
 php artisan storage:link
 --Antes de correr la app--
 php artisan serve -> Run the app
