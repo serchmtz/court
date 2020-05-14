@@ -6,7 +6,7 @@
     @foreach($federacion as $item)
     <div class = "container">
         <div class="container">
-            <a href="{{ route('participants') }}">
+            <a href="{{ route('participants',$item) }}">
                 <h4>{{ $item->name }}</h4>
             </a>
         </div>

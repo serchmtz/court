@@ -4,12 +4,13 @@
 <div class = "container">
     <h1 class="display-4">Jugadores de la federación</h1>
     @foreach($participante as $item)
+    @if($federacion->id == $item->team_id)
     <div class = "container">
         <div class="container">
-            $id_team = {{ $item->team_id }};
-            $id_player = {{$item->player_id}};
+            <h4>Participante</h4>
         </div>
     </div>
+    @endif
     @endforeach
 </div>
 @endsection

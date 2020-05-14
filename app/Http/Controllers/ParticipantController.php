@@ -19,6 +19,14 @@ class ParticipantController extends Controller
         return view('participants',compact('participante'));
     }
 
+    public function detalle($id_team)
+    {
+        $participante = App\Participant::all();
+        $federacion = App\Team::findOrFail($id_team);
+
+        return view('participants',compact('federacion','participante'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
