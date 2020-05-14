@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tournament;
+use App;
+
 class TournamentController extends Controller
 {
     /**
@@ -13,7 +15,8 @@ class TournamentController extends Controller
      */
     public function index()
     {
-        //
+        $torneos = App\Tournament::all();
+        return view('tournament',compact('torneos'));
     }
 
     /**

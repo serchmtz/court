@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Inscription;
+use App;
+
 class InscriptionController extends Controller
 {
     /**
@@ -13,7 +15,8 @@ class InscriptionController extends Controller
      */
     public function index()
     {
-        //
+        $inscribir = App\Inscription::all();
+        return view('inscription',compact('inscribir'));
     }
 
     /**

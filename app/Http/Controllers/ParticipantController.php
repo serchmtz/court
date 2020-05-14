@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Participant;
+use App;
+
 class ParticipantController extends Controller
 {
     /**
@@ -13,7 +15,8 @@ class ParticipantController extends Controller
      */
     public function index()
     {
-        //
+        $participante = App\Participant::all();
+        return view('participants',compact('participante'));
     }
 
     /**

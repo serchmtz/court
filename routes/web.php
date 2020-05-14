@@ -20,3 +20,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/tournaments','TournamentController@index')->name('tournaments');
+Route::get('/inscription','InscriptionController@index')->name('inscriptions');
+
+Route::get('/participants','ParticipantController@index')->name('participants');
+Route::get('/players','PlayerController@index')->name('players');
+Route::get('/teams','TeamController@index')->name('teams');
