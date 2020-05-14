@@ -38,15 +38,6 @@ Route::middleware('auth:api')->group( function () {
     Route::get('authuser','API\RegisterController@authuser')->name('authuser');
 });
 
-/*Route::middleware('tournaments:api')->group(function () {
-    Route::get('tournaments', 'TournamentController@index')->name('tournaments.index');
-    Route::get('tournaments/{tournament}', 'TournamenrController@show')->name('tournaments.show');
-    /*Route::post('users', 'API\RegisterController@register')->name('users.store');
-    Route::put('tournaments/{tournament}', 'TournamentController@update')->name('tournaments.update');
-    Route::delete('tournaments/{tournament}', 'TournamentController@destroy')->name('tournament.destroy');
-
-});*/
-
 Route::post('login', 'API\RegisterController@login')->name('login');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

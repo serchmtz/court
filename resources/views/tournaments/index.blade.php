@@ -33,9 +33,9 @@
                 <td>{{$tournament->competition}}</td>
                 <td>{{$tournament->location}}</td>
                 <td>{{$tournament->date}}</td>
-                <td><a class="btn btn-primary btn-xs" href="{{action('TournamentController@update', $tournament->id)}}" ><span class="glyphicon glyphicon-pencil"></span></a></td>
+                <td><a class="btn btn-primary btn-xs" href="{{action('TournamentController@edit', $tournament)}}" ><span class="glyphicon glyphicon-pencil"></span></a></td>
                 <td>
-                  <form action="{{action('TournamentController@destroy', $tournament->id)}}" method="post">
+                  <form action="{{action('TournamentController@destroy', $tournament)}}" method="post">
                    {{csrf_field()}}
                    <input name="_method" type="hidden" value="DELETE">
  

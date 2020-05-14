@@ -105,8 +105,6 @@ class TournamentController extends BaseController
      */
     public function show(Tournament $tournament)
     {
-        /*$tournaments=Tournament::find($id);
-        return  view('tournament.show',compact('tournaments'));*/
         return $this->sendResponse(new TournamentResource($tournament), 'Tournament retrieved successfully.',200);
     }
 
@@ -116,9 +114,9 @@ class TournamentController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Tournament $tournament)
     {
-        //
+        return view('/tournaments/update', compact ('tournament'));
     }
 
     /**
@@ -133,7 +131,7 @@ class TournamentController extends BaseController
         date_default_timezone_set('America/Mexico_City');
         $validator = Validator::make($request->all(), [
             'name' => ['string', 'max:255'],
-            /*'date' => [''],*/
+            'date' => ['date', 'date_format:Y-m-d H:i:s'],
             'category' => [
                 'string',
                 'max:25', 
@@ -145,16 +143,17 @@ class TournamentController extends BaseController
                 Rule::in(['Singles', 'Doubles'])
             ],
             'nRounds' => ['int', 'max:11'],
-            'location' => ['string', 'max:50'],
+            'location' => ['string', 'max:255'],
         ]);
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       
         }
         $tournament->name = !is_null($request->name) ? $request->name : $tournament->name;
+        $tournament->date = !is_null($request->date) ? $request->date : $tournament->date;
         $tournament->category = !is_null($request->category) ? $request->category : $tournament->category;
         $tournament->competition = !is_null($request->competition) ? $request->competition : $tournament->competition;
         $tournament->nRounds = !is_null($request->nRounds) ? $request->nRounds : $tournament->nRounds;
-        $tournament->location = !is_null($request->location) ? Hash::make($request->location) : $tournament->location;
+        $tournament->location = !is_null($request->location) ? $request->location : $tournament->location;
         $tournament->updated_at = date("Y-m-d H:i:s");
         $tournament->save();
 
@@ -169,10 +168,10 @@ class TournamentController extends BaseController
      */
     public function destroy(Tournament $tournament)
     {
-        date_default_timezone_set('America/Mexico_City');
+        //date_default_timezone_set('America/Mexico_City');
         $tournament->delete();
-        $tournamet->updated_at = date("Y-m-d H:i:s");
-        $tournament->save(); 
+        //$tournamet->updated_at = date("Y-m-d H:i:s");
+        //$tournament->save(); 
         return $this->sendResponse([], 'Tournament deleted.',202);
     }
     public function fetchAll(){
