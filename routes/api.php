@@ -48,7 +48,6 @@ Route::middleware('auth:api')->group( function () {
 });*/
 
 Route::post('login', 'API\RegisterController@login')->name('login');
-//Route::post('tournaments', 'TournamentController@index')->name('tournaments.index');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

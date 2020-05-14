@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tournament;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\Tournament as TournamentResource;
-class TournamentController extends Controller
+use Validator;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\API\BaseController as BaseController;
+class TournamentController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -31,7 +35,8 @@ class TournamentController extends Controller
             ]; 
         }
         return $this->sendResponse($array, 'Tournaments retrieved successfully.',200);*/
-        $tournaments=Tournament::orderBy('id','DESC')->paginate(3);
+        //$tournaments=Tournament::orderBy('id','DESC')->paginate(3);
+        $tournaments = Tournament::all();
         return view('/tournaments/index',compact('tournaments'));
     }
 
@@ -42,7 +47,7 @@ class TournamentController extends Controller
      */
     public function create()
     {
-        //
+        return view('/tournaments/create');
     }
 
     /**
@@ -50,10 +55,46 @@ class TournamentController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * 
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
      */
     public function store(Request $request)
     {
-        //
+        date_default_timezone_set('America/Mexico_City');
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'date' => ['required', 'date', 'date_format:Y-m-d H:i:s'],
+            'category' => [
+                'required',
+                'string',
+                'max:25', 
+                Rule::in(['Male','Female','Mixed'])
+            ],
+            'competition' => [
+                'required', 
+                'string',
+                'max:25',
+                Rule::in(['Singles', 'Doubles'])
+            ],
+            'nRounds' => ['required', 'int', 'max:11'],
+            'location' => ['required','string', 'max:255'],
+        ]);
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors());       
+        }
+        $tournament = new Tournament();
+        $tournament->name = $request->name;
+        $tournament->date = $request->date;
+        $tournament->category = $request->category;
+        $tournament->competition = $request->competition;
+        $tournament->nRounds = $request->nRounds;
+        $tournament->location = $request->location;
+        $tournament->created_at = date("Y-m-d H:i:s");
+        $tournament->updated_at = date("Y-m-d H:i:s");
+        $tournament->save();
+        return $this->sendResponse(new TournamentResource($tournament),'Tournament created successfully.', 201);
     }
 
     /**
@@ -62,11 +103,11 @@ class TournamentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Tournament $tournament)
     {
-        $tournaments=Tournament::find($id);
-        return  view('tournament.show',compact('tournaments'));
-        //return $this->sendResponse(new TournamentResource($tournament), 'Tournament retrieved successfully.',200);
+        /*$tournaments=Tournament::find($id);
+        return  view('tournament.show',compact('tournaments'));*/
+        return $this->sendResponse(new TournamentResource($tournament), 'Tournament retrieved successfully.',200);
     }
 
     /**
@@ -87,7 +128,7 @@ class TournamentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tournament $tournament)
     {
         date_default_timezone_set('America/Mexico_City');
         $validator = Validator::make($request->all(), [

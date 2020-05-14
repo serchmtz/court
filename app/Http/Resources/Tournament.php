@@ -17,7 +17,7 @@ class Tournament extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'date' => $this->date->format('d/m/Y H:i:s'),
+            'date' => $this->date,
             'category' => $this->category,
             'competition' => $this->competition,
             'nRounds' => $this->nRounds,

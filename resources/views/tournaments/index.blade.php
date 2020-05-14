@@ -8,7 +8,7 @@
           <div class="pull-left"><h3>Lista Torneos</h3></div>
           <div class="pull-right">
             <div class="btn-group">
-              
+            <a href="{{ route('tournament.create') }}" class="btn btn-info" >Añadir Torneo</a>
             </div>
           </div>
           <div class="table-container">
@@ -53,7 +53,6 @@
           </table>
         </div>
       </div>
-      {{ $tournaments->links() }}
     </div>
   </div>
 </section>
