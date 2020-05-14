@@ -22,7 +22,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/tournaments','TournamentController@index')->name('tournaments');
-Route::get('/inscription','InscriptionController@index')->name('inscriptions');
+Route::get('/inscription','InscriptionController@index')->name('inscriptions.inscription');
 
 Route::get('/participants/{id_team}','ParticipantController@detalle')->name('participants');
 Route::get('/players','PlayerController@index')->name('players');

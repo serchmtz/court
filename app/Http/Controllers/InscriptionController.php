@@ -16,7 +16,7 @@ class InscriptionController extends Controller
     public function index()
     {
         $inscribir = App\Inscription::all();
-        return view('inscription',compact('inscribir'));
+        return view('inscriptions.inscription',compact('inscribir'));
     }
 
     /**

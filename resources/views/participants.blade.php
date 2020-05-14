@@ -7,6 +7,10 @@
     @if($federacion->id == $item->team_id)
     <div class = "container">
         <div class="container">
+            <a href="{{ route('inscriptions.inscription') }}" class="btn btn-primary">Inscription</a>
+        </div>
+        <br>
+        <div class="container">
             <h4>Participante</h4>
         </div>
     </div>
