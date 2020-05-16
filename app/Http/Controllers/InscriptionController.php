@@ -58,7 +58,10 @@ class InscriptionController extends Controller
                 //$fileName = str_slug(Carbon::now()->toDayDateTimeString()).rand(11111, 99999) .'.' . $extension;
                 
                 // Uploading file to given path
-                $request->file('file')->move($destinationPath, $fileName); 
+                $file = $request->file('file')->move($destinationPath, $fileName); 
+                
+                Excel::import(new ParticipantsImport,$file);
+                return back()->with('message','Participants import successful');
             }
         }
     }
