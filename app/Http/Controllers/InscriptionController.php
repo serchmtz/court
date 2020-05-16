@@ -39,7 +39,7 @@ class InscriptionController extends Controller
     public function fileupload(Request $request){
         if($request->hasFile('file')) {
             // Upload path
-            $destinationPath = public_path().'/storage/';
+            $destinationPath = 'storage/';
             // Create directory if not exists
             if (!file_exists($destinationPath)) {
                 mkdir($destinationPath, 0755, true);
@@ -54,7 +54,8 @@ class InscriptionController extends Controller
             // Check extension
             if(in_array(strtolower($extension), $validextensions)){
                 // Rename file 
-                $fileName = str_slug(Carbon::now()->toDayDateTimeString()).rand(11111, 99999) .'.' . $extension;
+                $fileName = 'participants'.rand(11111, 99999) .'.' . $extension;
+                //$fileName = str_slug(Carbon::now()->toDayDateTimeString()).rand(11111, 99999) .'.' . $extension;
                 
                 // Uploading file to given path
                 $request->file('file')->move($destinationPath, $fileName); 
