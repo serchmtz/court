@@ -22,8 +22,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/tournaments','TournamentController@index')->name('tournaments');
-Route::get('/inscription','InscriptionController@index')->name('inscriptions.inscription');
-
-Route::get('/participants/{id_team}','ParticipantController@detalle')->name('participants');
-Route::get('/players','PlayerController@index')->name('players');
 Route::get('/teams/{id}','TeamController@detalle')->name('teams');
+Route::get('/participants/{id_team}','ParticipantController@detalle')->name('participants');
+Route::get('/inscription','InscriptionController@index')->name('inscriptions.inscription');
+Route::post('/subir','InscriptionController@subirArchivo')->name('subir');
+Route::post('/participants/fileupload/','InscriptionController@fileupload')->name('inscriptions.addparticipants');
