@@ -28,8 +28,6 @@ class InscriptionController extends Controller
         //$request->file('archivo')->store('public');
         $file = $request->file('archivo')->store('public');
         Excel::import(new ParticipantsImport,$file);
-
-        return back()->with('message','Participants import successful');
     }
 
     /**
@@ -61,7 +59,6 @@ class InscriptionController extends Controller
                 $file = $request->file('file')->move($destinationPath, $fileName); 
                 
                 Excel::import(new ParticipantsImport,$file);
-                return back()->with('message','Participants import successful');
             }
         }
     }
