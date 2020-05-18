@@ -28,7 +28,12 @@ class ParticipantsImport implements ToModel
         $torneo     =   $row[6];
         $nombre_fed  = $row[7];//necesito rerornar el nombre de la federacion
 
-        $id_user = DB::table('users')->where('name','=',$nombre)->value('id');
+        
+
+        if($nombre == null ){
+            //return('Error, participant '. $nombre .'is not a inscript member');
+        }else{
+            $id_user = DB::table('users')->where('name','=',$nombre)->value('id');
 
         DB::table('Players')->insert([
             'user_id'   =>  $id_user,
@@ -55,7 +60,6 @@ class ParticipantsImport implements ToModel
             'player_id' =>  $id_player,
         ]);
         //Para realizar la inscripcion:
-       
 
         $id_participant = DB::table('users')
                             ->join('players','users.id','=','players.user_id')
@@ -64,9 +68,6 @@ class ParticipantsImport implements ToModel
        
         $id_torneo = DB::table('tournaments')->where('name','=',$torneo)->value('id');
 
-        if($nombre == null || $id_user == '0'){
-            //return('Error, participant '. $nombre .'is not a inscript member');
-        }else{
             return new Inscription([
                 'tournament_id' =>$id_torneo,
                 'participant_id' => $id_participant,
