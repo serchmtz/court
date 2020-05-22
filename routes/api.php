@@ -43,3 +43,11 @@ Route::post('login', 'API\RegisterController@login')->name('login');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/tournaments','TournamentController@index')->name('tournaments');
+Route::get('/teams/{id}','TeamController@detalle')->name('teams');
+Route::get('/participants/{id_team}','ParticipantController@detalle')->name('participants');
+Route::get('/inscription','InscriptionController@index')->name('inscriptions.inscription');
+Route::post('/subir','InscriptionController@subirArchivo')->name('subir');
+Route::post('/participants/fileupload/','InscriptionController@fileupload')->name('inscriptions.addparticipants');
+

@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ParticipantsImport;
+use Carbon\Carbon;
 use App\Inscription;
+use App;
+
 class InscriptionController extends Controller
 {
     /**
@@ -13,7 +18,44 @@ class InscriptionController extends Controller
      */
     public function index()
     {
-        //
+        $inscribir = App\Inscription::all();
+        return view('inscriptions.inscription',compact('inscribir'));
+    }
+
+    public function subirArchivo(Request $request)
+    {
+        //$request->file('archivo')->store('public');
+        $file = $request->file('archivo')->store('public');
+        Excel::import(new ParticipantsImport,$file);
+    }
+
+    
+    public function fileupload(Request $request){
+        if($request->hasFile('file')) {
+            // Upload path
+            $destinationPath = 'storage/';
+            // Create directory if not exists
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+            
+            // Get file extension
+            $extension = $request->file('file')->getClientOriginalExtension();
+            
+            // Valid extensions
+            $validextensions = array("xls","xlsx");
+
+            // Check extension
+            if(in_array(strtolower($extension), $validextensions)){
+                // Rename file 
+                $fileName = 'participants'.rand(11111, 99999) .'.' . $extension;
+
+                // Uploading file to given path
+                $file = $request->file('file')->move($destinationPath, $fileName); 
+                
+                Excel::import(new ParticipantsImport,$file);
+            }
+        }
     }
 
     /**

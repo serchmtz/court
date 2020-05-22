@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Team;
+use App;
+
 class TeamController extends Controller
 {
     /**
@@ -14,6 +16,13 @@ class TeamController extends Controller
     public function index()
     {
         //
+    }
+
+    public function detalle($id)
+    {
+        $federacion = App\Team::all();
+        $torneo = App\Tournament::findOrFail($id);
+        return view('teams',compact('torneo','federacion'));
     }
 
     /**
