@@ -29,9 +29,6 @@ class InscriptionController extends Controller
         Excel::import(new ParticipantsImport,$file);
     }
 
-    /**
-     * Para Dropzone
-     */
     
     public function fileupload(Request $request){
         if($request->hasFile('file')) {
@@ -52,8 +49,7 @@ class InscriptionController extends Controller
             if(in_array(strtolower($extension), $validextensions)){
                 // Rename file 
                 $fileName = 'participants'.rand(11111, 99999) .'.' . $extension;
-                //$fileName = str_slug(Carbon::now()->toDayDateTimeString()).rand(11111, 99999) .'.' . $extension;
-                
+
                 // Uploading file to given path
                 $file = $request->file('file')->move($destinationPath, $fileName); 
                 
@@ -61,7 +57,6 @@ class InscriptionController extends Controller
             }
         }
     }
-     /*Fin de Dropzone*/
 
     /**
      * Show the form for creating a new resource.

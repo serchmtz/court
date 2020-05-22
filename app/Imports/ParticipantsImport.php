@@ -20,46 +20,7 @@ class ParticipantsImport implements ToModel
         //Requisito:Ya tiene que ser usuario del sistema
         //Datos del jugador:
         $nombre     =   $row[0];
-        $sex        =   $row[1];
-        $pais       =   $row[2];
-        $cumpleaños =   $row[3];
-        $atpPoints  =   $row[4];
-        $photo      =   $row[5];
-        $torneo     =   $row[6];
-        $nombre_fed  = $row[7];//necesito rerornar el nombre de la federacion
-
-        
-
-        if($nombre == null ){
-            //return('Error, participant '. $nombre .'is not a inscript member');
-        }else{
-            $id_user = DB::table('users')->where('name','=',$nombre)->value('id');
-
-        DB::table('Players')->insert([
-            'user_id'   =>  $id_user,
-            'country'   =>  $pais,
-            'birthday'  =>  $cumpleaños,
-            'atpPoints' =>  $atpPoints,
-            'photo'     =>  $photo,
-            'sex'       =>  $sex,
-           ]);
-
-        $id_player = DB::table('users')
-                            ->join('players','users.id','=','players.user_id')
-                            ->where('users.name','=',$nombre)->value('users.id');
-        
-        $id_team = DB::table('Teams')->where('name','=',$nombre_fed)->value('id');
-
-        DB::table('Members')->insert([
-            'team_id'    =>  $id_team,
-            'player_id'  =>  $id_player,
-        ]);
-
-        DB::table('Participants')->insert([
-            'team_id'   =>  $id_team,
-            'player_id' =>  $id_player,
-        ]);
-        //Para realizar la inscripcion:
+        $torneo     =   $row[1];
 
         $id_participant = DB::table('users')
                             ->join('players','users.id','=','players.user_id')
@@ -68,6 +29,9 @@ class ParticipantsImport implements ToModel
        
         $id_torneo = DB::table('tournaments')->where('name','=',$torneo)->value('id');
 
+        if($id_participant == null  || $id_torneo == null){
+            //return('Error, participant '. $nombre .'is not a inscript member');
+        }else{
             return new Inscription([
                 'tournament_id' =>$id_torneo,
                 'participant_id' => $id_participant,
