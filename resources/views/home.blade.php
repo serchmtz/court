@@ -19,6 +19,12 @@
                     </div>
 
                     You are logged in!
+                    <br>
+                    <a href="/home/tournaments" class="btn btn-info" >Gestionar Torneos</a>
+
+                    
+                    
+
                 </div>
             </div>
         </div>
