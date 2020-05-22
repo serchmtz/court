@@ -9,6 +9,7 @@
           <div class="pull-right">
             <div class="btn-group">
             <a href="{{ route('tournament.create') }}" class="btn btn-info" >Añadir Torneo</a>
+            <a href="{{ route('inscriptions.inscription') }}" class="btn btn-primary">Inscription</a>
             </div>
           </div>
           <div class="table-container">
