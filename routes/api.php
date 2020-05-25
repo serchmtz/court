@@ -46,3 +46,11 @@ Route::put('/home/tournaments/update/{tournament}', 'TournamentController@update
 Route::get('/home/tournaments/edit/{tournament}', 'TournamentController@edit')->name('tournament.edit');
 Route::get('/home/tournaments/{tournament}', 'TournamentController@show')->name('tournament.show');
 Route::delete('/home/tournaments/{tournament}', 'TournamentController@destroy')->name('tournament.destroy');
+
+Route::get('/tournaments','TournamentController@index')->name('tournaments');
+Route::get('/teams/{id}','TeamController@detalle')->name('teams');
+Route::get('/participants/{id_team}','ParticipantController@detalle')->name('participants');
+Route::get('/inscription','InscriptionController@index')->name('inscriptions.inscription');
+Route::post('/subir','InscriptionController@subirArchivo')->name('subir');
+Route::post('/participants/fileupload/','InscriptionController@fileupload')->name('inscriptions.addparticipants');
+

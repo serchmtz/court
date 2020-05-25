@@ -13,13 +13,13 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+                   
+                    <div class="container">
+                    <a href="{{ route('tournaments') }}" class="btn btn-primary">Tournaments</a>
+                    </div>
                     You are logged in!
                     <br>
                     <a href="{{ route('tournaments.index') }}" class="btn btn-info" >Gestionar Torneos</a>
-
-                    
-                    
 
                 </div>
             </div>

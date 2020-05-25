@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tournament;
+use App;
+
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\Tournament as TournamentResource;
 use Validator;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\API\BaseController as BaseController;
+
 class TournamentController extends BaseController
 {
     /**
