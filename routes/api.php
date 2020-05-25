@@ -23,10 +23,6 @@ Route::get('/all/inscriptions','InscriptionController@fetchAll')->name('fetchAll
 Route::get('/all/matches','MatchController@fetchAll')->name('fetchAll');
 Route::get('/all/stats','StatController@fetchAll')->name('fetchAll');
 Route::get('/all/sets','SetController@fetchAll')->name('fetchAll');
-/*Route::get('tournaments/{tournament}', 'TournamenrController@show')->name('tournaments.show');
-Route::post('users', 'API\RegisterController@register')->name('users.store');
-Route::put('tournaments/{tournament}', 'TournamentController@update')->name('tournaments.update');
-Route::delete('tournaments/{tournament}', 'TournamentController@destroy')->name('tournament.destroy');*/
 
 Route::middleware('auth:api')->group( function () {
     Route::get('users', 'UserController@index')->name('users.index');
@@ -43,6 +39,13 @@ Route::post('login', 'API\RegisterController@login')->name('login');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/home/tournaments', 'TournamentController@index')->name('tournaments.index');
+Route::get('/home/tournaments/crear', 'TournamentController@create')->name('tournament.create');
+Route::post('/home/tournaments/store', 'TournamentController@store')->name('tournament.store');
+Route::put('/home/tournaments/update/{tournament}', 'TournamentController@update')->name('tournament.update');
+Route::get('/home/tournaments/edit/{tournament}', 'TournamentController@edit')->name('tournament.edit');
+Route::get('/home/tournaments/{tournament}', 'TournamentController@show')->name('tournament.show');
+Route::delete('/home/tournaments/{tournament}', 'TournamentController@destroy')->name('tournament.destroy');
 
 Route::get('/tournaments','TournamentController@index')->name('tournaments');
 Route::get('/teams/{id}','TeamController@detalle')->name('teams');
