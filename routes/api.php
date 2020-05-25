@@ -36,6 +36,9 @@ Route::middleware('auth:api')->group( function () {
     Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
     Route::post('logout', 'API\RegisterController@logout')->name('logout');
     Route::get('authuser','API\RegisterController@authuser')->name('authuser');
+
+
+ 
 });
 
 Route::post('login', 'API\RegisterController@login')->name('login');
@@ -47,7 +50,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/tournaments','TournamentController@index')->name('tournaments');
 Route::get('/teams/{id}','TeamController@detalle')->name('teams');
 Route::get('/participants/{id_team}','ParticipantController@detalle')->name('participants');
+
 Route::get('/inscription','InscriptionController@index')->name('inscriptions.inscription');
 Route::post('/subir','InscriptionController@subirArchivo')->name('subir');
-Route::post('/participants/fileupload/','InscriptionController@fileupload')->name('inscriptions.addparticipants');
-
+Route::post('/participants/fileupload/','InscriptionController@subirArchivo')->name('inscriptions.addparticipants');

@@ -8,8 +8,9 @@ use App\Imports\ParticipantsImport;
 use Carbon\Carbon;
 use App\Inscription;
 use App;
+use App\Http\Controllers\API\BaseController as BaseController;
 
-class InscriptionController extends Controller
+class InscriptionController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -24,9 +25,31 @@ class InscriptionController extends Controller
 
     public function subirArchivo(Request $request)
     {
-        //$request->file('archivo')->store('public');
-        $file = $request->file('archivo')->store('public');
-        Excel::import(new ParticipantsImport,$file);
+        $file   =   $request->file('file')->store('public');
+        $import =   new ParticipantsImport;
+
+        $import->setNoRegister([]);
+        $import->setTournamentNoRegister([]);
+        $import->setInscriptions([]);
+
+        Excel::import($import,$file);
+
+        $participants   =   $import->getNoRegister();
+        $tournaments    =   $import->getTournamentNoRegister();
+        $inscriptions   =   $import->getInscriptions();
+
+        if(empty($participants) && empty($tournaments) && empty($inscriptions)){
+            return $this->sendResponse($participants, 'Inscriptions succesfully',201);
+        }else if(!empty($participants)){
+            return $this->sendError('Some users are not in the database. The rest were added succesfully', $participants);
+        }else if(!empty($tournaments)){
+            return $this->sendError('Some tournaments are not exist in the database. The rest were added succesfully',$tournaments);
+        }else{
+            return $this->sendError('Some participants alredy are inscripted. The rest were added succesfully',$inscriptions);
+        }
+        
+        //Para eliminar el archivo despues de usarlo
+        //Storage::delete($file);
     }
 
     
