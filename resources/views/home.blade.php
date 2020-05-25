@@ -16,7 +16,7 @@
 
                     You are logged in!
                     <br>
-                    <a href="{{ route('tournaments') }}" class="btn btn-info" >Gestionar Torneos</a>
+                    <a href="{{ route('tournaments.index') }}" class="btn btn-info" >Gestionar Torneos</a>
 
                     
                     
