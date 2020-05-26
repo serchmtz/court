@@ -25,6 +25,7 @@ Route::get('/all/stats','StatController@fetchAll')->name('fetchAll');
 Route::get('/all/sets','SetController@fetchAll')->name('fetchAll');
 
 Route::middleware('auth:api')->group( function () {
+    //------------Users and authentications------------//
     Route::get('users', 'UserController@index')->name('users.index');
     Route::get('users/{user}', 'UserController@show')->name('users.show');
     Route::post('users', 'API\RegisterController@register')->name('users.store');
@@ -32,9 +33,10 @@ Route::middleware('auth:api')->group( function () {
     Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
     Route::post('logout', 'API\RegisterController@logout')->name('logout');
     Route::get('authuser','API\RegisterController@authuser')->name('authuser');
-
-
- 
+    //------------Inscriptions File Upload------------//
+    Route::get('/inscription','InscriptionController@index')->name('inscriptions.inscription');
+    Route::post('/subir','InscriptionController@subirArchivo')->name('subir');
+    
 });
 
 Route::post('login', 'API\RegisterController@login')->name('login');
@@ -50,10 +52,3 @@ Route::get('/home/tournaments/edit/{tournament}', 'TournamentController@edit')->
 Route::get('/home/tournaments/{tournament}', 'TournamentController@show')->name('tournament.show');
 Route::delete('/home/tournaments/{tournament}', 'TournamentController@destroy')->name('tournament.destroy');
 
-Route::get('/tournaments','TournamentController@index')->name('tournaments');
-Route::get('/teams/{id}','TeamController@detalle')->name('teams');
-Route::get('/participants/{id_team}','ParticipantController@detalle')->name('participants');
-
-Route::get('/inscription','InscriptionController@index')->name('inscriptions.inscription');
-Route::post('/subir','InscriptionController@subirArchivo')->name('subir');
-Route::post('/participants/fileupload/','InscriptionController@subirArchivo')->name('inscriptions.addparticipants');
