@@ -2,6 +2,7 @@
 npm install && npm run dev [Install React dependencies]
 composer install [Install Laravel dependencies]
 composer require laravel/passport [Install passport]
+composer require maatwebsite/excel
 crear usuario userCourt p@$$w0rd
 crear base de datos courtDB
 Modificar el .env 
