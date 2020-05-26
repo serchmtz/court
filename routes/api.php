@@ -33,12 +33,16 @@ Route::middleware('auth:api')->group( function () {
     Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
     Route::post('logout', 'API\RegisterController@logout')->name('logout');
     Route::get('authuser','API\RegisterController@authuser')->name('authuser');
+
     //------------Inscriptions File Upload------------//
     Route::get('/inscription','InscriptionController@index')->name('inscriptions.inscription');
     Route::post('/subir','InscriptionController@subirArchivo')->name('subir');
     
 });
 
+//------------Results----------------------------//
+Route::get('matches','MatchController@index')->name('matches.index');
+Route::get('matches/{match}', 'MatchController@show')->name('matches.show');
 Route::post('login', 'API\RegisterController@login')->name('login');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

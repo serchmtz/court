@@ -8,6 +8,8 @@ use Tests\TestCase;
 
 class InscriptionTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * A basic test example.
      *
@@ -19,11 +21,9 @@ class InscriptionTest extends TestCase
 
         $response->assertStatus(200);
     }
-    /*public function testGetAllInscriptions()
+    public function testGetAllInscriptions()
     {
-        $response = $this->json('GET','/api/all/inscriptions');
-        
+        $response = $this->json('GET','/api/all/inscriptions'); 
         $response->assertStatus(200);
-        $this->assertCount(40,$response->json());
-    }*/
+    }
 }

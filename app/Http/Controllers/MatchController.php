@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Match;
-class MatchController extends Controller
+use Validator;
+use Illuminate\Validation\Rule;
+use App\Http\Resources\Match as MatchResource;
+use App\Http\Controllers\API\BaseController as BaseController;
+class MatchController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +17,17 @@ class MatchController extends Controller
      */
     public function index()
     {
-        //
+        $matches = Match::get();
+        return $this->sendResponse($matches->load('stat',
+                                                'sets',
+                                                'participant1.player.user',
+                                                'participant1.team.members.player.user',
+                                                'participant2.player.user',
+                                                'participant2.team.members.player.user',
+                                                'winner.player.user',
+                                                'winner.team.members.player.user'
+                                            ),
+                                 'Matches retrieved successfully.',200);
     }
 
     /**
@@ -43,9 +57,17 @@ class MatchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Match $match)
     {
-        //
+        return $this->sendResponse($match->load('stat',
+                                                'sets',
+                                                'participant1.player.user',
+                                                'participant1.team.members.player.user',
+                                                'participant2.player.user',
+                                                'participant2.team.members.player.user',
+                                                'winner.player.user',
+                                                'winner.team.members.player.user'
+                                            ), 'Match retrieved successfully.',200);   
     }
 
     /**

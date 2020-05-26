@@ -8,6 +8,7 @@ use Tests\TestCase;
 
 class MatchTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic test example.
      *
@@ -19,10 +20,14 @@ class MatchTest extends TestCase
 
         $response->assertStatus(200);
     }
-    /*public function testGetAllMatches()
+    public function testGetAllMatches()
     {
         $response = $this->json('GET','/api/all/matches');
-        $response->assertStatus(200);
-        $this->assertCount(36,$response->json());
-    }*/
+        $response->assertStatus(200); 
+    }
+    public function testGetMatches()
+    {
+        $response = $this->json('GET','/api/matches');
+        $response->assertStatus(200); 
+    }
 }
