@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 use App\Imports\ParticipantsImport;
 use Carbon\Carbon;
 use App\Inscription;
 use App;
+use App\Http\Controllers\API\BaseController as BaseController;
 
-class InscriptionController extends Controller
+class InscriptionController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -24,9 +26,20 @@ class InscriptionController extends Controller
 
     public function subirArchivo(Request $request)
     {
-        //$request->file('archivo')->store('public');
-        $file = $request->file('archivo')->store('public');
-        Excel::import(new ParticipantsImport,$file);
+        $file   =   $request->file('file')->store('public');
+        $import =   new ParticipantsImport;
+
+        $import->resetErrors();
+        Excel::import($import,$file);
+        $errors = $import->getErrors();
+        //Para eliminar el archivo despues de usarlo
+        Storage::delete($file);
+        if(empty($errors)){
+            return $this->sendResponse([], 'All inscriptions made succesfully.', 200);
+        }
+        else{
+            return $this->sendError('Inscriptions error.', $errors);       
+        }
     }
 
     
