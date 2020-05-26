@@ -13,9 +13,9 @@
 <h4>Add file</h4>
 <form method="POST" action="{{route('subir')}}" accept-charset="UTF-8" enctype="multipart/form-data">
   {{ csrf_field() }}
-  <label for="archivo"><b>Select file: </b></label><br>
+  <label for="file"><b>Select file: </b></label><br>
   <br>
-  <input type="file" name="archivo" accept=".xls,.xlsx" required>
+  <input type="file" name="file" accept=".xls,.xlsx" required>
   <br>
   <input class="btn btn-success" type="submit" value="Inscript" >
 </form>
