@@ -16,6 +16,7 @@ class PlayerController extends Controller
     public function fetchAll(){
         $array=array();
         $players = Player::get();
+        
         foreach ($players as $player) 
         {
             $array[$player->id] = [
@@ -25,6 +26,7 @@ class PlayerController extends Controller
                 'birthday' => $player->birthday,
                 'photo'=> $player->photo,
                 'sex'=>$player->sex,
+                'user' => $player->user,
                 'created_at' => $player->created_at,
                 'updated_at' => $player->updated_at    
             ]; 
