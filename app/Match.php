@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Match extends Model
 {
+     
     public function participant1()
     {
         return $this->belongsTo('App\Participant', 'player1');

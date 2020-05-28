@@ -18,12 +18,12 @@ class CreateMatchesTable extends Migration
             $table->integer('tournament_id');
             $table->integer('player1');
             $table->integer('player2');
-            $table->integer('winner_id');
+            $table->integer('winner_id')->nullable();
             $table->string('round',40)->comments('
                 final,semifinal,quarters,fourth,third,second,first'
             );
-            $table->datetime('started_at',0);
-            $table->datetime('finished_at',0);
+            $table->datetime('started_at',0)->nullable();
+            $table->datetime('finished_at',0)->nullable();
             $table->boolean('abandoned')->default(false);
             $table->string('excuse',50)->nullable()->default(null);
             $table->timestamps();
