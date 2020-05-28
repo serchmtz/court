@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Match;
+use App\Stat;
 use Validator;
 use Illuminate\Validation\Rule;
 use App\Http\Resources\Match as MatchResource;
@@ -279,6 +280,22 @@ class MatchController extends BaseController
             $new_match->created_at = date("Y-m-d H:i:s");
             $new_match->updated_at = date("Y-m-d H:i:s");
             $new_match->save();
+            
+            $stat = new Stat();
+            $stat->id = $new_match->id;
+            $stat->acesP1 = 0;
+            $stat->acesP2 = 0;
+            $stat->doubleFaultP1 =  0;
+            $stat->doubleFaultP2 =  0;
+            $stat->firstServicePercentageP1 = 0;
+            $stat->firstServicePercentageP2 = 0;
+            $stat->servicePointsWonP1 = 0;
+            $stat->servicePointsWonP2 = 0;
+            $stat->tiebreaksWonP1 = 0;
+            $stat->tiebreaksWonP2 = 0;
+            $stat->serverGamesWonP1 = 0;
+            $stat->serverGamesWonP2 = 0;
+            $stat->save();
         }
     }
 }
