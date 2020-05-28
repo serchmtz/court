@@ -162,6 +162,17 @@ class MatchController extends BaseController
         $match->save(); //Save the updated match
 
         /**
+         * If there are already matches from a superior round
+         * then we don't generate the next rounds or check
+         * whether the round is finished
+         */
+        $superiorRound = getNextRound($match->round);
+        $check = Match::where('tournament_id','=',$match->tournament_id)
+                    ->where('round','=',$superiorRound)->get();
+        if($check != null)
+            return $this->sendResponse(new MatchResource($match),'Match updated successfully.', 200);
+    
+        /**
          * Check if the current tournament round
          * is done and in that case, we create the next matches
          * for the following round
@@ -231,7 +242,7 @@ class MatchController extends BaseController
                         ->get();
         foreach($matches as $match_){ 
             //If a match is not done yet, return false
-            if($match_->finished_at == null && $match_->winner_id==null) 
+            if($match_->finished_at == null && $match_->winner_id == null) 
                 return false;
         }
         
