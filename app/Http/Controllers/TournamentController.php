@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Tournament;
 use App;
 use App\Match;
+use App\Stat;
 use App\Inscription;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\Tournament as TournamentResource;
@@ -205,14 +206,15 @@ class TournamentController extends BaseController
      * @return \Illuminate\Http\Response
      */
     public function sortmatches(Tournament $tournament){
+
         //First we check if they were already sorted
-        $round_string = getRoundString($tournament->nRounds);
+        $round_string = $this->getRoundString($tournament->nRounds);
         $matches = Match::where('tournament_id','=',$tournament->id)
                         ->where('round','=',$round_string)
                         ->get();
         // If there are matches of the initial round, return them
-        if($matches != null){
-            return $this->sendResponse($matches, 'First round matches sorted.',202);
+        if($matches->count() != 0){
+            return $this->sendResponse($matches, 'First round matches already sorted.',200);
         }
         // Sort the initial matches...
         // Take all the players in the inscription
@@ -241,16 +243,16 @@ class TournamentController extends BaseController
             $participants[] = $inscription->participant_id;
         }
         //Shuffle the array of participants
-        shuffle($participants);
+        $result = shuffle($participants);
 
         //Create a match between consecutive participants
-        for($i=0;$i<count($matches);$i+=2){
+        for($i=0;$i<count($participants);$i+=2){
             $new_match = new Match();
-            $new_match->tournament_id = $tournament->tournament_id;
+            $new_match->tournament_id = $tournament->id;
             $new_match->player1 = $participants[$i];
             $new_match->player2 = $participants[$i+1];
             $new_match->winner_id = null;
-            $new_match->round = getRoundString($tournament->nRounds);
+            $new_match->round = $this->getRoundString($tournament->nRounds);
             $new_match->started_at = null;
             $new_match->finished_at = null;
             $new_match->abandoned =  0;
@@ -260,7 +262,7 @@ class TournamentController extends BaseController
             $new_match->save();
             
             $stat = new Stat();
-            $stat->id = $new_match->id;
+            $stat->match_id = $new_match->id;
             $stat->acesP1 = 0;
             $stat->acesP2 = 0;
             $stat->doubleFaultP1 =  0;

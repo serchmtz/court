@@ -144,16 +144,18 @@ class MatchController extends BaseController
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       
         }
+
         /**
          * Assign the new fields to the requested match
          * taking care of whether they were past in 
          * the request or not
          */
+
         $match->tournament_id = !is_null($request->tournament_id) ? $request->tournament_id : $match->tournament_id;
         $match->player1 = !is_null($request->player1) ? $request->player1 : $match->player1;
         $match->player2 = !is_null($request->player2) ? $request->player2 : $match->player2;
         $match->winner_id = !is_null($request->winner_id) ? $request->winner_id : $match->winner_id;
-        $match->round = !is_null($request->round) ? $request->round : $match;
+        $match->round = !is_null($request->round) ? $request->round : $match->round;
         $match->started_at = !is_null($request->started_at) ? $request->started_at : $match->started_at;
         $match->finished_at = !is_null($request->finished_at) ? $request->finished_at : $match->finished_at;
         $match->abandoned = !is_null($request->abandoned) ? $request->abandoned : 0;
@@ -166,10 +168,11 @@ class MatchController extends BaseController
          * then we don't generate the next rounds or check
          * whether the round is finished
          */
-        $superiorRound = getNextRound($match->round);
+        $superiorRound = $this->getNextRound($match->round);
+
         $check = Match::where('tournament_id','=',$match->tournament_id)
                     ->where('round','=',$superiorRound)->get();
-        if($check != null)
+        if($check->count() != 0)
             return $this->sendResponse(new MatchResource($match),'Match updated successfully.', 200);
     
         /**
@@ -177,13 +180,13 @@ class MatchController extends BaseController
          * is done and in that case, we create the next matches
          * for the following round
          */
-        $round_finished = isRoundFinished($match);
+        $round_finished = $this->isRoundFinished($match);
         /**
          * If the current tournament round is done 
          * and is not the final match...
          * */ 
         if($round_finished && $match->round!="final"){ 
-            createNextRoundMatches($match); //Create the next matches
+            $this->createNextRoundMatches($match); //Create the next matches
         }
         return $this->sendResponse(new MatchResource($match),'Match updated successfully.', 200);
     }
@@ -251,8 +254,8 @@ class MatchController extends BaseController
     }
     /**
      * Return the next round string
-     * @param String $round
-     * @return String
+     * @param string $round
+     * @return string
      */
     public function getNextRound($round){
         $rounds = [
@@ -283,7 +286,7 @@ class MatchController extends BaseController
             $new_match->player1 = $matches[$i]->winner_id;
             $new_match->player2 = $matches[$i+1]->winner_id;;
             $new_match->winner_id = null;
-            $new_match->round = getNextRound($match->round);
+            $new_match->round = $this->getNextRound($match->round);
             $new_match->started_at = null;
             $new_match->finished_at = null;
             $new_match->abandoned =  0;
@@ -293,7 +296,7 @@ class MatchController extends BaseController
             $new_match->save();
             
             $stat = new Stat();
-            $stat->id = $new_match->id;
+            $stat->match_id = $new_match->id;
             $stat->acesP1 = 0;
             $stat->acesP2 = 0;
             $stat->doubleFaultP1 =  0;

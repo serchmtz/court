@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Stat;
+use App\Match;
+use Validator;
 use App\Http\Resources\Stat as StatResource;
+use App\Http\Controllers\API\BaseController as BaseController;
 
-class StatController extends Controller
+class StatController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -73,7 +76,7 @@ class StatController extends Controller
         date_default_timezone_set('America/Mexico_City');
         $match = Match::where('id','=',$id_match)->first();
         if($match == null) {
-            return $this->sendError('Error in database.', 'Match '.$id_match.' doesn not exists');       
+            return $this->sendError('Error in database.', 'Match '.$id_match.' does not exists');       
         }
         $validator = Validator::make($request->all(), [
             'acesP1' => ['integer','min:0'],
@@ -92,7 +95,8 @@ class StatController extends Controller
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       
         }
-        $stat = $match->stat;
+        $stat = Stat::where('match_id','=',$match->id)->first();
+
         $stat->acesP1 = !is_null($request->acesP1) ? $request->acesP1 : $stat->acesP1;
         $stat->acesP2 = !is_null($request->acesP2) ? $request->acesP2 : $stat->acesP2;
         $stat->doubleFaultP1 = !is_null($request->doubleFaultP1) ? $request->doubleFaultP1 : $stat->doubleFaultP1;
@@ -107,8 +111,8 @@ class StatController extends Controller
         $stat->serverGamesWonP2 = !is_null($request->serverGamesWonP2) ? $request->serverGamesWonP2 : $stat->serverGamesWonP2;
         $stat->updated_at = date("Y-m-d H:i:s");
         $stat->save();
-        return $this->sendResponse(new StatResource($stat),'Stats updated successfully.', 200);
 
+        return $this->sendResponse(new StatResource($stat),'Stats updated successfully.', 200);
     }
 
     /**
