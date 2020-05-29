@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Match;
+use App\Stat;
 use Validator;
 use Illuminate\Validation\Rule;
 use App\Http\Resources\Match as MatchResource;
@@ -143,16 +144,18 @@ class MatchController extends BaseController
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       
         }
+
         /**
          * Assign the new fields to the requested match
          * taking care of whether they were past in 
          * the request or not
          */
+
         $match->tournament_id = !is_null($request->tournament_id) ? $request->tournament_id : $match->tournament_id;
         $match->player1 = !is_null($request->player1) ? $request->player1 : $match->player1;
         $match->player2 = !is_null($request->player2) ? $request->player2 : $match->player2;
         $match->winner_id = !is_null($request->winner_id) ? $request->winner_id : $match->winner_id;
-        $match->round = !is_null($request->round) ? $request->round : $match;
+        $match->round = !is_null($request->round) ? $request->round : $match->round;
         $match->started_at = !is_null($request->started_at) ? $request->started_at : $match->started_at;
         $match->finished_at = !is_null($request->finished_at) ? $request->finished_at : $match->finished_at;
         $match->abandoned = !is_null($request->abandoned) ? $request->abandoned : 0;
@@ -161,17 +164,29 @@ class MatchController extends BaseController
         $match->save(); //Save the updated match
 
         /**
+         * If there are already matches from a superior round
+         * then we don't generate the next rounds or check
+         * whether the round is finished
+         */
+        $superiorRound = $this->getNextRound($match->round);
+
+        $check = Match::where('tournament_id','=',$match->tournament_id)
+                    ->where('round','=',$superiorRound)->get();
+        if($check->count() != 0)
+            return $this->sendResponse(new MatchResource($match),'Match updated successfully.', 200);
+    
+        /**
          * Check if the current tournament round
          * is done and in that case, we create the next matches
          * for the following round
          */
-        $round_finished = isRoundFinished($match);
+        $round_finished = $this->isRoundFinished($match);
         /**
          * If the current tournament round is done 
          * and is not the final match...
          * */ 
         if($round_finished && $match->round!="final"){ 
-            createNextRoundMatches($match); //Create the next matches
+            $this->createNextRoundMatches($match); //Create the next matches
         }
         return $this->sendResponse(new MatchResource($match),'Match updated successfully.', 200);
     }
@@ -230,7 +245,7 @@ class MatchController extends BaseController
                         ->get();
         foreach($matches as $match_){ 
             //If a match is not done yet, return false
-            if($match_->finished_at == null && $match_->winner_id==null) 
+            if($match_->finished_at == null && $match_->winner_id == null) 
                 return false;
         }
         
@@ -239,8 +254,8 @@ class MatchController extends BaseController
     }
     /**
      * Return the next round string
-     * @param String $round
-     * @return String
+     * @param string $round
+     * @return string
      */
     public function getNextRound($round){
         $rounds = [
@@ -271,7 +286,7 @@ class MatchController extends BaseController
             $new_match->player1 = $matches[$i]->winner_id;
             $new_match->player2 = $matches[$i+1]->winner_id;;
             $new_match->winner_id = null;
-            $new_match->round = getNextRound($match->round);
+            $new_match->round = $this->getNextRound($match->round);
             $new_match->started_at = null;
             $new_match->finished_at = null;
             $new_match->abandoned =  0;
@@ -279,6 +294,22 @@ class MatchController extends BaseController
             $new_match->created_at = date("Y-m-d H:i:s");
             $new_match->updated_at = date("Y-m-d H:i:s");
             $new_match->save();
+            
+            $stat = new Stat();
+            $stat->match_id = $new_match->id;
+            $stat->acesP1 = 0;
+            $stat->acesP2 = 0;
+            $stat->doubleFaultP1 =  0;
+            $stat->doubleFaultP2 =  0;
+            $stat->firstServicePercentageP1 = 0;
+            $stat->firstServicePercentageP2 = 0;
+            $stat->servicePointsWonP1 = 0;
+            $stat->servicePointsWonP2 = 0;
+            $stat->tiebreaksWonP1 = 0;
+            $stat->tiebreaksWonP2 = 0;
+            $stat->serverGamesWonP1 = 0;
+            $stat->serverGamesWonP2 = 0;
+            $stat->save();
         }
     }
 }

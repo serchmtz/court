@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Set;
 use App\Match;
-class SetController extends Controller
+use Validator;
+use App\Http\Controllers\API\BaseController as BaseController;
+
+class SetController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -88,8 +91,10 @@ class SetController extends Controller
         foreach($dbSets as $dbSet){
             $dbSet->delete();
         }
+
         foreach($request->sets as $set)
         {
+            $set = (object) $set;
             $new_set = new Set();
             $new_set->match_id = $match->id;
             $new_set->nSet = $set->nSet;

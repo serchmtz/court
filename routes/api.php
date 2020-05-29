@@ -37,7 +37,12 @@ Route::middleware('auth:api')->group( function () {
     //------------Inscriptions File Upload------------//
     Route::get('/inscription','InscriptionController@index')->name('inscriptions.inscription');
     Route::post('/subir','InscriptionController@subirArchivo')->name('subir');
-    
+
+    //-----------Matches,sets and stats---------------//
+    Route::put('matches/{match}', 'MatchController@update')->name('matches.update');
+    Route::put('sets/{id_match}', 'SetController@update')->name('sets.update');
+    Route::put('stats/{id_match}', 'StatController@update')->name('stats.update');
+    Route::get('sortmatches/{tournament}','TournamentController@sortmatches')->name('tournaments.sort');
 });
 
 //------------Results----------------------------//

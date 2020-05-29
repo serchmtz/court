@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Tournament;
 use App;
-
+use App\Match;
+use App\Stat;
+use App\Inscription;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\Tournament as TournamentResource;
 use Validator;
@@ -177,6 +179,114 @@ class TournamentController extends BaseController
         //$tournament->save(); 
         return $this->sendResponse([], 'Tournament deleted.',202);
     }
+    //--------------------------------//
+    //-----------MINE-----------------//
+    //--------------------------------//
+
+    /**
+     * Get round string 
+     * @param int $round
+     * @return string 
+     */
+    public function getRoundString($round){
+        $rounds = [
+            "first",
+            "second",
+            "third",
+            "fourth",
+            "quarters",
+            "semifinal",
+            "final"
+        ];
+        return $rounds[count($rounds) - $round];
+    }
+    /**
+     * Sort a tournament's first round matches
+     * @param Tournament $tournament
+     * @return \Illuminate\Http\Response
+     */
+    public function sortmatches(Tournament $tournament){
+
+        //First we check if they were already sorted
+        $round_string = $this->getRoundString($tournament->nRounds);
+        $matches = Match::where('tournament_id','=',$tournament->id)
+                        ->where('round','=',$round_string)
+                        ->get();
+        // If there are matches of the initial round, return them
+        if($matches->count() != 0){
+            return $this->sendResponse($matches, 'First round matches already sorted.',200);
+        }
+        // Sort the initial matches...
+        // Take all the players in the inscription
+        $inscriptions = Inscription::where('tournament_id','=',$tournament->id)
+                                    ->get();
+        // Check if there are enough players to sort the init round
+        $numPlayers = pow(2,$tournament->nRounds); //Right number of participants
+        $realCount = count($inscriptions); //Actual number of participants
+        // If they match with each other
+        if($realCount < $numPlayers)
+        {
+            return $this->sendError('Error sorting', 'There are only '.
+                                                    $realCount.
+                                                    ' players inscripted and must be '.
+                                                    $numPlayers);       
+        }
+        /**
+         * They are equal and we can sort properly
+         * NOTE: There are never going to be $realCount > $numPlayers
+         * because the inscriptions in the excel's import are 
+         * validated to avoid this
+         */
+        // Get an array with all the participants' id
+        $participants = [];
+        foreach($inscriptions as $inscription){
+            $participants[] = $inscription->participant_id;
+        }
+        //Shuffle the array of participants
+        $result = shuffle($participants);
+
+        //Create a match between consecutive participants
+        for($i=0;$i<count($participants);$i+=2){
+            $new_match = new Match();
+            $new_match->tournament_id = $tournament->id;
+            $new_match->player1 = $participants[$i];
+            $new_match->player2 = $participants[$i+1];
+            $new_match->winner_id = null;
+            $new_match->round = $this->getRoundString($tournament->nRounds);
+            $new_match->started_at = null;
+            $new_match->finished_at = null;
+            $new_match->abandoned =  0;
+            $new_match->excuse = null;
+            $new_match->created_at = date("Y-m-d H:i:s");
+            $new_match->updated_at = date("Y-m-d H:i:s");
+            $new_match->save();
+            
+            $stat = new Stat();
+            $stat->match_id = $new_match->id;
+            $stat->acesP1 = 0;
+            $stat->acesP2 = 0;
+            $stat->doubleFaultP1 =  0;
+            $stat->doubleFaultP2 =  0;
+            $stat->firstServicePercentageP1 = 0;
+            $stat->firstServicePercentageP2 = 0;
+            $stat->servicePointsWonP1 = 0;
+            $stat->servicePointsWonP2 = 0;
+            $stat->tiebreaksWonP1 = 0;
+            $stat->tiebreaksWonP2 = 0;
+            $stat->serverGamesWonP1 = 0;
+            $stat->serverGamesWonP2 = 0;
+            $stat->save();
+
+        }
+        $new_matches = Match::where('tournament_id','=',$tournament->id)
+                            ->get();
+        // Return the new sorted matches
+        return $this->sendResponse($new_matches, 'First round matches sorted.',200);
+    }
+    /**
+     * Return all the Tournaments raw
+     * @return \Illuminate\Http\Response
+     */
     public function fetchAll(){
         $array=array();
         $tournaments = Tournament::get();   
