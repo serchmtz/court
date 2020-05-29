@@ -35,11 +35,17 @@ class ParticipantsImport implements ToModel
     {
         date_default_timezone_set('America/Mexico_City');
 
-        $participant_name       =   $row[0];
-        $tournament_name        =   $row[1];
-        $tournament_category    =   $row[2];
-        $tournament_competition =   $row[3];
-        
+        $participant_name = $row[0];
+        $tournament_name = $row[1];
+        $tournament_category = $row[2];
+        $tournament_competition = $row[3];
+
+        if(empty($participant_name) || 
+            empty($tournament_name) || 
+            empty($tournament_category) || 
+            empty($tournament_competition))
+            return null;
+            
         $tournament = Tournament::where('name','=',$tournament_name)
                                 ->where('category','=',$tournament_category)
                                 ->where('competition','=',$tournament_competition)
