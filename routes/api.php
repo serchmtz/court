@@ -53,6 +53,7 @@ Route::post('login', 'API\RegisterController@login')->name('login');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 Route::get('/home/tournaments', 'TournamentController@index')->name('tournaments.index');
 Route::get('/home/tournaments/crear', 'TournamentController@create')->name('tournament.create');
 Route::post('/home/tournaments/store', 'TournamentController@store')->name('tournament.store');
