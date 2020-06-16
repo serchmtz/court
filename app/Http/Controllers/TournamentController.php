@@ -137,7 +137,7 @@ class TournamentController extends BaseController
         date_default_timezone_set('America/Mexico_City');
         $validator = Validator::make($request->all(), [
             'name' => ['string', 'max:255'],
-            'date' => ['date', 'date_format:Y-m-d H:i:s'],
+            'date' => ['string', 'max:255'],
             'category' => [
                 'string',
                 'max:25', 
