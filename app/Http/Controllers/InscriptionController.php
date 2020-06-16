@@ -9,6 +9,7 @@ use App\Imports\ParticipantsImport;
 use Carbon\Carbon;
 use App\Inscription;
 use App;
+use Validator;
 use App\Http\Controllers\API\BaseController as BaseController;
 
 class InscriptionController extends BaseController
@@ -26,9 +27,14 @@ class InscriptionController extends BaseController
 
     public function subirArchivo(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'file' => ['required','file','mimes:xlsx'],
+        ]);
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors());       
+        }
         $file   =   $request->file('file')->store('public');
         $import =   new ParticipantsImport;
-
         $import->resetErrors();
         Excel::import($import,$file);
         $errors = $import->getErrors();

@@ -42,7 +42,7 @@ class UserController extends BaseController
         date_default_timezone_set('America/Mexico_City');
         $validator = Validator::make($request->all(), [
             'name' => ['string', 'max:255'],
-            'email' => ['string', 'email', 'max:255', 'unique:users'],
+            'email' => ['string', 'email', 'max:255'],
             'phone' => ['string', 'regex:/^[0-9]{3}[-][0-9]{3}[-][0-9]{4}$/'],
             'role' => [
                 'string',
@@ -53,6 +53,14 @@ class UserController extends BaseController
         ]);
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());       
+        }
+        if(!is_null($request->email)){
+            if($request->email != $user->email){
+                $check = User::where('email','=',$request->email)->get();
+                if($check->count() != 0){
+                    return $this->sendError('Validation Error.', 'This email has been already taken');       
+                }
+            }
         }
         $user->name = !is_null($request->name) ? $request->name : $user->name;
         $user->email = !is_null($request->email) ? $request->email : $user->email;
