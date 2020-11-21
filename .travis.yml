@@ -17,4 +17,4 @@ before_script:
 - php artisan storage:link
 
 script:
-    - vendor/bin/phpunit
+    - php artisan test
